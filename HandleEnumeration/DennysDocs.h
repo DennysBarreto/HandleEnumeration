@@ -140,16 +140,16 @@ namespace DennysDocs {
 
 	LPWSTR WINAPI GetObjectHandleName(HANDLE hHandle)
 	{
-		if (!DennysDocs::IsValidHandle(hHandle))
-			return L'\0';
-
-		LPWSTR HandleObjectName = 0;
+		LPWSTR HandleObjectName 	= 0;
 
 		POBJECT_NAME_INFORMATION	pObject = NULL;
-		ULONG						pLengthNeed = 0;
+		ULONG				pLengthNeed = 0;
 
 		NTSTATUS Status = 0;
 
+		if (!DennysDocs::IsValidHandle(hHandle))
+			return L'\0';
+		
 		pObject = &OBJECT_NAME_INFORMATION();
 		HandleObjectName = L'\0';
 
@@ -331,6 +331,7 @@ namespace DennysDocs {
 
 		if (Status == STATUS_UNSUCCESSFUL)
 		{
+			MemoryFree(DeviceInfo);
 			MemoryFree(CHandleInformation);
 			MemoryFree(SystemHandle);
 			return FALSE;
@@ -383,7 +384,9 @@ namespace DennysDocs {
 			{
 				if (SystemHandle->Handles[i].ProcessId != atual)
 				{
-					NtClose(hProcess);
+					if(IsValidHandle(hProcess))
+						NtClose(hProcess);
+					
 					hProcess = OpenProcess(PROCESS_DUP_HANDLE, 0, SystemHandle->Handles[i].ProcessId);
 					atual = SystemHandle->Handles[i].ProcessId;
 				}
