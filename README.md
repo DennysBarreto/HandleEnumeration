@@ -1,3 +1,3 @@
-HandleEnumeration in C ++.
+<b> HandleEnumeration in C ++. </b>
 
-List all process handles.
+List all the process handles in the system.
