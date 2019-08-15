@@ -1,78 +1,16 @@
 #define SECURITY_WIN32
 
-#include <ws2tcpip.h>
-#include <winsock2.h>
-#include <iphlpapi.h>
-#include <ip2string.h>
-#include <Mstcpip.h>
 #include <Windows.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <string>
-#include <iostream>
-#include <Psapi.h>
-#include <tlhelp32.h>
-#include <ShlObj.h>
 #include <WtsApi32.h>
-#include <vector>
-#include <WinInet.h>
-#include <sstream>
-#include <typeinfo>
-#include <ImageHlp.h>
-#include <thread>
-#include <memory>
-#include <assert.h>
 #include <tchar.h>
-#include <cstdint>
-#include <conio.h>
-#include <comdef.h>
-#include <Wbemidl.h>
-#include <wincred.h>
-#include <strsafe.h>
-#include <Mq.h>
-#include <AclAPI.h>
-#include <sddl.h>
-#include <UserEnv.h>
-#include <Softpub.h>
-#include <wincrypt.h>
-#include <wintrust.h>
-#include <mscat.h>
-#include <algorithm>
-#include <Security.h>
-#include <io.h>
 #include <Shlwapi.h>
 #include "ntdll.h"
 
 #pragma comment(lib, "Shlwapi.lib")
-#pragma comment(lib, "Version.lib")
-#pragma comment(lib, "Shell32.lib")
-#pragma comment(lib, "Userenv.lib")
-#pragma comment(lib, "Mqrt.lib.")
-#pragma comment(lib, "WinInet.lib")
-#pragma comment(lib, "Shell32.lib")
-#pragma comment(lib, "Kernel32.lib")
-#pragma comment(lib, "User32.lib")
 #pragma comment(lib, "ntdll.lib")
-#pragma comment(lib, "PsApi.lib")
 #pragma comment(lib, "WtsApi32.lib")
-#pragma comment(lib, "Dbghelp.lib")
-#pragma comment(lib, "wbemuuid.lib")
-#pragma comment(lib, "credui.lib")
-#pragma comment(lib, "comsuppw.lib")
-#pragma comment(lib, "advapi32.lib")
-#pragma comment(lib, "wintrust.lib")
-#pragma comment(lib, "Ws2_32.lib")
-#pragma comment(lib, "Crypt32.lib")
-#pragma comment(lib, "iphlpapi.lib")
-#pragma comment(lib, "Secur32.lib")
-
-#pragma warning(disable: 4996)
-#pragma warning(push)
-#pragma warning(suppress: 4200)
-#pragma warning(disable: 4200)
-#pragma warning(pop)
-
-using namespace std;
 
 namespace DennysDocs {
 	typedef enum _HANDLE_TYPE {
