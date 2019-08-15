@@ -404,13 +404,13 @@ namespace DennysDocs {
 				if (Handle <= 0)
 					continue;
 
-				CHandleInformation->TargetHandles.hProcess = &hProcess;
-				CHandleInformation->TargetHandles.Handle = &Handle;
+				CHandleInformation->TargetHandles.hProcess 	= &hProcess;
+				CHandleInformation->TargetHandles.Handle 	= &Handle;
 
 				if (GetObjectTypeInfo(Handle, &ObjInfo) == TRUE)
 				{
-					CHandleInformation->ObjectTypeID = GetHandleTypeIndexByName(ObjInfo->TypeName.Buffer);
-					CHandleInformation->ObjectTypeSTR = ObjInfo->TypeName.Buffer;
+					CHandleInformation->ObjectTypeID 	= GetHandleTypeIndexByName(ObjInfo->TypeName.Buffer);
+					CHandleInformation->ObjectTypeSTR 	= ObjInfo->TypeName.Buffer;
 				}
 
 				if (CHandleInformation->ObjectTypeID == DennysDocs::HANDLE_TYPE::TYPE_FILE)
@@ -434,15 +434,26 @@ namespace DennysDocs {
 					{
 						Status = NtResumeThread(hThread, 0);
 
-						WaitSignal = WaitForSingleObject(hThread, 100);
+						if (Status == STATUS_SUCCESS)
+						{
+							WaitSignal = WaitForSingleObject(hThread, 100);
 
-						if (WaitSignal == WAIT_OBJECT_0)
-						{
-							GetExitCodeThread(hThread, (LPDWORD)&HandleNameObject);
-						}
-						else
-						{
-							Status = NtTerminateThread(hThread, 0);
+							if (WaitSignal == WAIT_TIMEOUT)
+							{
+								Status = NtTerminateThread(hThread, 0);
+							}
+							else
+							{
+								Status =
+									GetExitCodeThread(hThread, (LPDWORD)&HandleNameObject) ? 
+									STATUS_SUCCESS : STATUS_UNSUCCESSFUL;
+
+								if (Status == STATUS_SUCCESS)
+								{
+									if (lstrlenW(HandleNameObject) == 0)
+										HandleNameObject = EmptyString;
+								}
+							}
 						}
 
 						NtClose(hThread);
