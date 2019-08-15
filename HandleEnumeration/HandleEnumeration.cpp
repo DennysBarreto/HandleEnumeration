@@ -1,5 +1,7 @@
 #include "DennysDocs.h"
 
+#pragma warning(disable: 4477)
+
 using namespace DennysDocs;
 
 BOOL CALLBACK EnumContext(CHandleInfo HandleInfo, DWORD ProcessId, LPVOID lpParam)
@@ -33,10 +35,8 @@ int _tmain(int argc, TCHAR** argv)
 	BOOL	Status = 0;
 
 	ProcessId = DennysDocs::FindProcessID(L"notepad.exe");
-	
-	//ProcessId == 0 -> Enumerates all handles of all processes
 
-	Status = HandleEnumerateCallback(ProcessId, EnumContext, NULL);
+	Status = HandleEnumerateCallback(NULL, EnumContext, NULL);
 
 	return SleepEx(0xFFFFFF, FALSE);
 }
