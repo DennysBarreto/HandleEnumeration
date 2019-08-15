@@ -27,14 +27,16 @@ BOOL CALLBACK EnumContext(CHandleInfo HandleInfo, DWORD ProcessId, LPVOID lpPara
 	return TRUE;
 }
 
-int main()
+int _tmain(int argc, TCHAR** argv)
 {
 	DWORD	ProcessId = 0;
 	BOOL	Status = 0;
 
 	ProcessId = DennysDocs::FindProcessID(L"notepad.exe");
+	
+	//ProcessId == 0 -> Enumerates all handles of all processes
 
-	Status = HandleEnumerateCallback(NULL, EnumContext, NULL);
+	Status = HandleEnumerateCallback(ProcessId, EnumContext, NULL);
 
 	return SleepEx(0xFFFFFF, FALSE);
 }
