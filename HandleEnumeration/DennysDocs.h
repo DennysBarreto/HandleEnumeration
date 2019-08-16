@@ -290,7 +290,7 @@ namespace DennysDocs {
 		return Ret;
 	}
 
-	BOOL WINAPI HandleEnumerateCallback(DWORD ProcessID, CHandleEnum CCallback, LPVOID infoAdded)
+	BOOL WINAPI HandleEnumerateCallback(DWORD ProcessID, CHandleEnum CCallback, LPVOID lpParam)
 	{
 		static RTL_CRITICAL_SECTION HandleSync = { 0 };
 		static unsigned long SizeRequired = 8192;
@@ -471,7 +471,7 @@ namespace DennysDocs {
 				CHandleInformation->ObjectPTR = SystemHandle->Handles[i].Object;
 				CHandleInformation->ProcessID = SystemHandle->Handles[i].ProcessId;
 
-				StopEnumeration = !CCallback(*CHandleInformation, CHandleInformation->ProcessID, infoAdded);
+				StopEnumeration = !CCallback(*CHandleInformation, CHandleInformation->ProcessID, lpParam);
 
 				NtClose(Handle);
 
