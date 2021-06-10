@@ -1,0 +1,3 @@
+﻿  HandleEnumeration.cpp
+C:\Users\Dennys.Cruz\source\repos\DennysBarreto\HandleEnumeration\HandleEnumeration\HandleEnumeration.cpp(18,9): warning C4313: 'printf': '%x' na cadeia de formato está em conflito com o argumento 3 do tipo 'HANDLE'
+  HandleEnumeration.vcxproj -> C:\Users\Dennys.Cruz\Source\Repos\DennysBarreto\HandleEnumeration\x64\Debug\HandleEnumeration.exe
